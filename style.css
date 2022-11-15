@@ -90,7 +90,7 @@ h3 {
 .status input {
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border: none;
-    width: 90%;
+    width: 80%;
     padding: 0.5rem;
     border-radius: 2rem;
     color: #426696;
@@ -100,11 +100,27 @@ h3 {
     text-align: center;
 }
 
+.status button {
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border: none;
+    width: 15%;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    color: #426696;
+    font-weight: 600;
+    font-size: 1rem;
+    opacity: 0.8;
+    text-align: center;
+}
 
+.status button:hover {
+    background: linear-gradient(to right top, #df8165, #eb706c);
+    cursor: pointer;
+}
 
 .layout {
     flex: 2;
-    margin: 5rem;
+    margin: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -121,8 +137,8 @@ h3 {
 }
 
 .coinImage {
-    height: 5%;
-    width: 5%;
+    height: 7%;
+    width: 7%;
 }
 
 .cardInfo {

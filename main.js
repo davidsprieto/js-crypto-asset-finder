@@ -1,11 +1,5 @@
 "use strict";
 
-$("#searchCoinForm").submit(function(e) {
-    e.preventDefault();
-    let SEARCHED_COIN = $("#searchedCoin").val();
-    console.log(SEARCHED_COIN);
-});
-
 const settings = {
     "async": true,
     "crossDomain": true,
@@ -19,34 +13,91 @@ const settings = {
 
 $.ajax(settings)
     .done(function (data, status) {
-        console.log(data);
-        console.log(status);
+        // console.log(data);
+        // console.log(status);
+        searchedCoin(data);
         displayCoins(data);
         displayMarketCap(data);
         displayTotalCoins(data);
         display24hVolume(data);
         displayTotalExchanges(data);
-    });
+    }).fail(function() {
+        console.log("Request to Coinranking API Failed.");
+    }).always(function() {
+        console.log("Not your keys, not your crypto.");
+});
 
 function displayCoins(data) {
     let html = "";
     for (let i = 0; i < 1000; i++) {
 
+        let name = data.data.coins[i].name;
+        let symbol = data.data.coins[i].symbol;
+        let iconUrl = data.data.coins[i].iconUrl;
+        let price = round(data.data.coins[i].price);
+        let link = data.data.coins[i].coinrankingUrl;
+
         let line = `<div class="card">`;
-        line += `<img class="coinImage" src="${data.data.coins[i].iconUrl}" alt="coin"/>`;
+        line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
         line += `<div class="cardInfo">`;
-        line += `<h1>` + data.data.coins[i].name + `</h1>`;
-        line += `<p>` + "Symbol: " + data.data.coins[i].symbol + `</p>`;
+        line += `<h1 class="coin">` + `<a href="${link}" target="_blank">` + `${name}` + `</a> `+ `</h1>`;
+        line += `<p>` + "Symbol: " + `${symbol}` + `</p>`;
         line += `</div>`;
-        line += `<h2 class="price">` + "Price: " + "$" + round(data.data.coins[i].price) + `</h2>`;
+        line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
         line += `</div>`;
         html += line;
     }
     $('#displayedCoins').html(html);
 }
 
+function displayCoin(data, coin) {
+    let html = "";
+    let found = false;
+    coin = coin.toLowerCase();
+
+    for (let i = 0; i < 1000; i++) {
+        let name = data.data.coins[i].name.toLowerCase();
+        if (coin === name || name.includes(coin)) {
+            data = data.data.coins[i];
+            found = true;
+            break;
+        }
+    }
+
+    if (found) {
+        // console.log(coin, data);
+        let name = data.name;
+        let symbol = data.symbol;
+        let iconUrl = data.iconUrl;
+        let price = round(data.price);
+        let link = data.coinrankingUrl;
+
+        let line = `<div class="card">`;
+        line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
+        line += `<div class="cardInfo">`;
+        line += `<h1 class="coin">` + `<a href="${link}" target="_blank">` + `${name}` + `</a> ` + `</h1>`;
+        line += `<p>` + "Symbol: " + `${symbol}` + `</p>`;
+        line += `</div>`;
+        line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
+        line += `</div>`;
+        html += line;
+        $('#displayedCoins').html(html);
+    } else {
+        alert("Could not find that crypto asset.");
+        displayCoins(data);
+    }
+}
+
+function searchedCoin(data) {
+    $("#searchCoinForm").submit(function (e) {
+        e.preventDefault();
+        let searchedCoin = $("#searchedCoin").val();
+        displayCoin(data, searchedCoin);
+    });
+}
+
 function round(data) {
-   return Math.round(data * 1000000) / 1000000;
+   return Math.round(data * 100) / 100;
 }
 
 function displayMarketCap(data) {
@@ -65,7 +116,7 @@ function display24hVolume(data) {
 }
 
 function displayTotalExchanges(data) {
-    let html = '<p>' + data.data.stats.totalExchanges + '</p>';
+    let html = '<p>' + addCommas(data.data.stats.totalExchanges) + '</p>';
     $('#totalExchanges').html(html);
 }
 
