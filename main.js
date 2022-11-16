@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 
 const settings = {
-    "async": true,
+    "async": false,
     "crossDomain": true,
     "url": "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=1000&offset=0",
     "method": "GET",
@@ -12,19 +12,17 @@ const settings = {
 };
 
 $.ajax(settings)
-    .done(function (data, status) {
-        // console.log(data);
-        // console.log(status);
-        searchedCoin(data);
+    .done(function (data) {
+        passData(data);
         displayCoins(data);
         displayMarketCap(data);
         displayTotalCoins(data);
         display24hVolume(data);
         displayTotalExchanges(data);
-    }).fail(function() {
-        console.log("Request to Coinranking API Failed.");
-    }).always(function() {
-        console.log("Not your keys, not your crypto.");
+    }).fail(function () {
+    console.log("Request to Coinranking API Failed.");
+}).always(function () {
+    console.log("Not your keys, not your crypto.");
 });
 
 function displayCoins(data) {
@@ -50,13 +48,24 @@ function displayCoins(data) {
     $('#displayedCoins').html(html);
 }
 
-function displayCoin(data, coin) {
-    let html = "";
+function passData(data) {
+    $(function () {
+        $("#searchCoinForm").submit(function (e) {
+            e.preventDefault();
+            let coin = $("#searchedCoin").val().toLowerCase();
+            displaySearchedCoins(data, coin);
+        });
+    });
+}
+
+function displaySearchedCoins(data, coin) {
+
     let found = false;
-    coin = coin.toLowerCase();
+    let html = "";
+    let name = "";
 
     for (let i = 0; i < 1000; i++) {
-        let name = data.data.coins[i].name.toLowerCase();
+        name = data.data.coins[i].name.toLowerCase();
         if (coin === name || name.includes(coin)) {
             data = data.data.coins[i];
             found = true;
@@ -65,7 +74,6 @@ function displayCoin(data, coin) {
     }
 
     if (found) {
-        // console.log(coin, data);
         let name = data.name;
         let symbol = data.symbol;
         let iconUrl = data.iconUrl;
@@ -86,14 +94,6 @@ function displayCoin(data, coin) {
         alert("Could not find that crypto asset.");
         displayCoins(data);
     }
-}
-
-function searchedCoin(data) {
-    $("#searchCoinForm").submit(function (e) {
-        e.preventDefault();
-        let searchedCoin = $("#searchedCoin").val();
-        displayCoin(data, searchedCoin);
-    });
 }
 
 function round(data) {
