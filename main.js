@@ -13,6 +13,7 @@ const settings = {
 
 $.ajax(settings)
     .done(function (data) {
+        console.log(data);
         passData(data);
         displayCoins(data);
         displayMarketCap(data);
@@ -34,12 +35,15 @@ function displayCoins(data) {
         let iconUrl = data.data.coins[i].iconUrl;
         let price = round(data.data.coins[i].price);
         let link = data.data.coins[i].coinrankingUrl;
+        let rank = data.data.coins[i].rank;
+
 
         let line = `<div class="card">`;
         line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
         line += `<div class="cardInfo">`;
-        line += `<h1 class="coin">` + `<a href="${link}" target="_blank">` + `${name}` + `</a> `+ `</h1>`;
-        line += `<p>` + "Symbol: " + `${symbol}` + `</p>`;
+        line += `<h6 class="rank">` + "#" + `${rank}` + `</h6>`;
+        line += `<h1 class="coin"><a href="${link}" target="_blank">` + `${name}` + `</a></h1>`;
+        line += `<p class="symbol">` + `${symbol}` + `</p>`;
         line += `</div>`;
         line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
         line += `</div>`;
@@ -52,7 +56,7 @@ function passData(data) {
     $(function () {
         $("#searchCoinForm").submit(function (e) {
             e.preventDefault();
-            let coin = $("#searchedCoin").val().toLowerCase();
+            let coin = $("#searchedCoin").val().toLowerCase().trim();
             displaySearchedCoins(data, coin);
         });
     });
@@ -60,39 +64,55 @@ function passData(data) {
 
 function displaySearchedCoins(data, coin) {
 
-    let found = false;
-    let html = "";
-    let name = "";
-
-    for (let i = 0; i < 1000; i++) {
-        name = data.data.coins[i].name.toLowerCase();
-        if (coin === name || name.includes(coin)) {
-            data = data.data.coins[i];
-            found = true;
-            break;
-        }
-    }
-
-    if (found) {
-        let name = data.name;
-        let symbol = data.symbol;
-        let iconUrl = data.iconUrl;
-        let price = round(data.price);
-        let link = data.coinrankingUrl;
-
-        let line = `<div class="card">`;
-        line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
-        line += `<div class="cardInfo">`;
-        line += `<h1 class="coin">` + `<a href="${link}" target="_blank">` + `${name}` + `</a> ` + `</h1>`;
-        line += `<p>` + "Symbol: " + `${symbol}` + `</p>`;
-        line += `</div>`;
-        line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
-        line += `</div>`;
-        html += line;
-        $('#displayedCoins').html(html);
-    } else {
-        alert("Could not find that crypto asset.");
+    if (coin === "") {
         displayCoins(data);
+    } else {
+
+        let found = false;
+        let html = "";
+        let name = "";
+        let symbol = "";
+        let rank = "";
+
+        for (let i = 0; i < 1000; i++) {
+            name = data.data.coins[i].name.toLowerCase();
+            symbol = data.data.coins[i].symbol.toLowerCase();
+            rank = data.data.coins[i].rank.toString().toLowerCase();
+
+            let nameMatch = (coin === name || name.includes(coin));
+            let symbolMatch = (coin === symbol || symbol.includes(coin));
+            let rankMatch = (coin === rank || rank.includes(coin));
+
+            if (nameMatch || symbolMatch || rankMatch) {
+                data = data.data.coins[i];
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            let name = data.name;
+            let symbol = data.symbol;
+            let iconUrl = data.iconUrl;
+            let price = round(data.price);
+            let link = data.coinrankingUrl;
+            let rank = data.rank;
+
+            let line = `<div class="card">`;
+            line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
+            line += `<div class="cardInfo">`;
+            line += `<h6 class="rank">` + "#" + `${rank}` + `</h6>`;
+            line += `<h1 class="coin"><a href="${link}" target="_blank">` + `${name}` + `</a></h1>`;
+            line += `<p class="symbol">` + "Symbol: " + `${symbol}` + `</p>`;
+            line += `</div>`;
+            line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
+            line += `</div>`;
+            html += line;
+            $('#displayedCoins').html(html);
+        } else {
+            alert("Could not find that crypto asset.");
+            displayCoins(data);
+        }
     }
 }
 

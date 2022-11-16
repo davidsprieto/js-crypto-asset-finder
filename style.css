@@ -127,6 +127,7 @@ h3 {
 }
 
 .card {
+    text-align: center;
     display: flex;
     background: linear-gradient(to left top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
     border-radius: 1rem;
@@ -137,17 +138,18 @@ h3 {
 }
 
 .coinImage {
-    height: 7%;
-    width: 7%;
+    height: 6%;
+    width: 6%;
 }
 
 .cardInfo {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .price {
+    padding-top: 3%;
     font-weight: bold;
     background: linear-gradient(to right top, #df8165, #eb706c);
     -webkit-background-clip: text;
