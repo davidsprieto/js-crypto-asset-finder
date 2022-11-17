@@ -9,29 +9,26 @@
 main {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
-    background: linear-gradient(to right top, #df8165, #eb706c);
+    background: linear-gradient(to right top, #aeaeb0, #838181);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 h1 {
-    color: #426696;
+    color: #000000;
     font-weight: 600;
     font-size: 2rem;
-    opacity: 0.8;
 }
 
 h2, p {
-    color: #658ec6;
+    color: #838181;
     font-weight: 500;
-    opacity: 0.8;
 }
 
 h3 {
-    color: #426696;
+    color: #000000;
     font-weight: 600;
-    opacity: 0.8;
 }
 
 .glass {
@@ -71,7 +68,7 @@ h3 {
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
-    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    background: linear-gradient(to left top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
     border-radius: 2rem;
     margin-bottom: 2rem;
     padding-bottom: 2rem;
@@ -93,7 +90,7 @@ h3 {
     width: 80%;
     padding: 0.5rem;
     border-radius: 2rem;
-    color: #426696;
+    color: #838181;
     font-weight: 600;
     font-size: 1rem;
     opacity: 0.8;
@@ -106,7 +103,7 @@ h3 {
     width: 15%;
     padding: 0.5rem;
     border-radius: 2rem;
-    color: #426696;
+    color: #838181;
     font-weight: 600;
     font-size: 1rem;
     opacity: 0.8;
@@ -114,7 +111,7 @@ h3 {
 }
 
 .status button:hover {
-    background: linear-gradient(to right top, #df8165, #eb706c);
+    background: linear-gradient(to right top, #aeaeb0, #838181);
     cursor: pointer;
 }
 
@@ -151,7 +148,5 @@ h3 {
 .price {
     padding-top: 3%;
     font-weight: bold;
-    background: linear-gradient(to right top, #df8165, #eb706c);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }

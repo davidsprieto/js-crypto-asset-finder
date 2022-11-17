@@ -36,16 +36,16 @@ function displayCoins(data) {
         let price = round(data.data.coins[i].price);
         let link = data.data.coins[i].coinrankingUrl;
         let rank = data.data.coins[i].rank;
-
+        let color = data.data.coins[i].color;
 
         let line = `<div class="card">`;
         line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
         line += `<div class="cardInfo">`;
-        line += `<h6 class="rank">` + "#" + `${rank}` + `</h6>`;
-        line += `<h1 class="coin"><a href="${link}" target="_blank">` + `${name}` + `</a></h1>`;
-        line += `<p class="symbol">` + `${symbol}` + `</p>`;
+        line += `<h5 class="rank">` + "#" + `${rank}` + `</h5>`;
+        line += `<h1 class="coin"><a style="color: ${color};" href="${link}" target="_blank">` + `${name}` + `</a></h1>`;
+        line += `<p class="symbol" style="color: ${color};">` + `${symbol}` + `</p>`;
         line += `</div>`;
-        line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
+        line += `<h2 class="price" style="color: ${color};">` + "Price: " + "$" + `${price}` + `</h2>`;
         line += `</div>`;
         html += line;
     }
@@ -97,15 +97,16 @@ function displaySearchedCoins(data, coin) {
             let price = round(data.price);
             let link = data.coinrankingUrl;
             let rank = data.rank;
+            let color = data.color;
 
             let line = `<div class="card">`;
             line += `<img class="coinImage" src="${iconUrl}" alt="coin"/>`;
             line += `<div class="cardInfo">`;
             line += `<h6 class="rank">` + "#" + `${rank}` + `</h6>`;
-            line += `<h1 class="coin"><a href="${link}" target="_blank">` + `${name}` + `</a></h1>`;
-            line += `<p class="symbol">` + "Symbol: " + `${symbol}` + `</p>`;
+            line += `<h1 class="coin"><a style="color: ${color};" href="${link}" target="_blank">` + `${name}` + `</a></h1>`;
+            line += `<p class="symbol" style="color: ${color};">` + "Symbol: " + `${symbol}` + `</p>`;
             line += `</div>`;
-            line += `<h2 class="price">` + "Price: " + "$" + `${price}` + `</h2>`;
+            line += `<h2 class="price" style="color: ${color};">` + "Price: " + "$" + `${price}` + `</h2>`;
             line += `</div>`;
             html += line;
             $('#displayedCoins').html(html);
