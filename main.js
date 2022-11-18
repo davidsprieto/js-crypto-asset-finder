@@ -13,7 +13,7 @@ const settings = {
 
 $.ajax(settings)
     .done(function (data) {
-        console.log(data);
+        // console.log(data);
         passData(data);
         displayCoins(data);
         displayMarketCap(data);
