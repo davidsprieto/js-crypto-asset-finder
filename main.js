@@ -1,5 +1,6 @@
 "use strict"
 
+// Settings to be passed into ajax request.
 const settings = {
     "async": false,
     "crossDomain": true,
@@ -11,6 +12,7 @@ const settings = {
     }
 };
 
+// Ajax request to Coinranking API.
 $.ajax(settings)
     .done(function (data) {
         // console.log(data);
@@ -26,6 +28,7 @@ $.ajax(settings)
     console.log("Not your keys, not your crypto.");
 });
 
+// Function displays the data received from the Coinranking API.
 function displayCoins(data) {
     let html = "";
     for (let i = 0; i < 1000; i++) {
@@ -52,18 +55,21 @@ function displayCoins(data) {
     $('#displayedCoins').html(html);
 }
 
+// Function receives user input (searching for a crypto asset) from form on submit then passes that user input to a function to display if the user input matches a crypto asset from the Coinranking data.
 function passData(data) {
     $(function () {
         $("#searchCoinForm").submit(function (e) {
-            e.preventDefault();
+            e.preventDefault(); // don't want to reload the page
             let coin = $("#searchedCoin").val().toLowerCase().trim();
             displaySearchedCoins(data, coin);
         });
     });
 }
 
+// Function displays the crypto asset searched for by user input.
 function displaySearchedCoins(data, coin) {
 
+    // If form is submitted with an empty string, display all crypto assets.
     if (coin === "") {
         displayCoins(data);
     } else {
@@ -74,6 +80,7 @@ function displaySearchedCoins(data, coin) {
         let symbol = "";
         let rank = "";
 
+        // Meet conditions to determine if the crypto asset exists/is found.
         for (let i = 0; i < 1000; i++) {
             name = data.data.coins[i].name.toLowerCase();
             symbol = data.data.coins[i].symbol.toLowerCase();
@@ -90,6 +97,7 @@ function displaySearchedCoins(data, coin) {
             }
         }
 
+        // If the crypto asset is found, display its data.
         if (found) {
             let name = data.name;
             let symbol = data.symbol;
@@ -117,30 +125,36 @@ function displaySearchedCoins(data, coin) {
     }
 }
 
+// Function rounds the Coinranking data to two decimal places.
 function round(data) {
    return Math.round(data * 100) / 100;
 }
 
+// Function displays the market cap data from the Coinranking data.
 function displayMarketCap(data) {
     let html = '<p>' + "$" + addCommas(data.data.stats.totalMarketCap) + '</p>';
     $('#totalMarketCap').html(html);
 }
 
+// Function displays the total amount of crypto assets data from the Coinranking data.
 function displayTotalCoins(data) {
     let html = '<p>' + addCommas(data.data.stats.totalCoins) + '</p>';
     $('#totalCoins').html(html);
 }
 
+// Function displays the total 24 hour volume data from the Coinranking data.
 function display24hVolume(data) {
     let html = '<p>' + "$" + addCommas(data.data.stats.total24hVolume) + '</p>';
     $('#total24hVolume').html(html);
 }
 
+// Function displays the total amount of crypto exchanges data from the Coinranking data.
 function displayTotalExchanges(data) {
     let html = '<p>' + addCommas(data.data.stats.totalExchanges) + '</p>';
     $('#totalExchanges').html(html);
 }
 
+// Function formats the numbers received from the Coinranking data with commas to look better and for better readability.
 function addCommas(data) {
     data = data.toString();
     let copy = "";
