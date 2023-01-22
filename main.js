@@ -4,7 +4,7 @@
 const settings = {
     "async": false,
     "crossDomain": true,
-    "url": "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=1000&offset=0",
+    "url": "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=501&offset=0",
     "method": "GET",
     "headers": {
         "X-RapidAPI-Key": "59ba742d48msh46feac59f2323b3p1be004jsn2f643a858b6e",
@@ -31,7 +31,7 @@ $.ajax(settings)
 // Function displays the data received from the Coinranking API.
 function displayCoins(data) {
     let html = "";
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i <= 500; i++) {
 
         let name = data.data.coins[i].name;
         let symbol = data.data.coins[i].symbol;
