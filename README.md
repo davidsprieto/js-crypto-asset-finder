@@ -1,2 +1,2 @@
-# crypto-price-tracker
-JavaScript && jQuery Single-Page Application to Track Desired Crypto Prices!
+# Crypto Asset Finder
+JavaScript && jQuery Single-Page Application to Find Desired Crypto Assets!
