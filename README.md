@@ -1,4 +1,4 @@
-# Crypto Asset Finder - Search to Find Desired Crypto Assets!
+# Crypto Asset Finder - Search the Top 500 Crypto Assets to find your Desired One & View its Price Analytics!
 
 Single-page web application developed using:
 
@@ -11,5 +11,5 @@ Style Sheet Language:
 Programming language:
 - JavaScript
 
-Frameworks:
+Framework:
 - jQuery
