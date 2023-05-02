@@ -7,7 +7,7 @@ const settings = {
     "url": "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=501&offset=0",
     "method": "GET",
     "headers": {
-        "X-RapidAPI-Key": API_KEY,
+        "X-RapidAPI-Key": "59ba742d48msh46feac59f2323b3p1be004jsn2f643a858b6e",
         "X-RapidAPI-Host": "coinranking1.p.rapidapi.com"
     }
 };
