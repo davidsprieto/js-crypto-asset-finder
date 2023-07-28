@@ -1,15 +1,23 @@
-# Crypto Asset Finder - Search the Top 500 Crypto Assets to Find Your Desired Asset & View Its Price Chart!
+<h1 align="center">
+  Crypto Asset Finder - Search the Top 500 Crypto Assets to Find Your Desired Asset & View Its Price Chart!
+</h1>
 
-Single-page web application developed using:
+<h3 align="center">
+  Single-page web application developed using:
+</h3>
 
-Markup Language:
-- HTML
+<p align="center">
+  Markup Language: HTML
+</p>
 
-Style Sheet Language:
-- CSS
+<p align="center">
+  Style Sheet Language: CSS
+</p>
 
-Programming language:
-- JavaScript
+<p align="center">
+  Programming language: JavaScript
+</p>
 
-Framework:
-- jQuery
+<p align="center">
+  Framework: jQuery
+</p>
